@@ -577,16 +577,19 @@ class Strategy(with_metaclass(MetaStrategy, StrategyBase)):
         if qorders:
             return  # cash is notified on a regular basis
 
-        cash = self.broker.getcash()
-        value = self.broker.getvalue()
-        fundvalue = self.broker.fundvalue
-        fundshares = self.broker.fundshares
+        # Disabled to avoid IP ban from Binance, see https://github.com/tienduccao/backtrader/commit/4dd5e1ba041a3d26549b85c695153b16c4a5a91a
+        # TODO: What are the effects of removing these lines?
 
-        self.notify_cashvalue(cash, value)
-        self.notify_fund(cash, value, fundvalue, fundshares)
-        for analyzer in itertools.chain(self.analyzers, self._slave_analyzers):
-            analyzer._notify_cashvalue(cash, value)
-            analyzer._notify_fund(cash, value, fundvalue, fundshares)
+        # cash = self.broker.getcash()
+        # value = self.broker.getvalue()
+        # fundvalue = self.broker.fundvalue
+        # fundshares = self.broker.fundshares
+
+        # self.notify_cashvalue(cash, value)
+        # self.notify_fund(cash, value, fundvalue, fundshares)
+        # for analyzer in itertools.chain(self.analyzers, self._slave_analyzers):
+        #     analyzer._notify_cashvalue(cash, value)
+        #     analyzer._notify_fund(cash, value, fundvalue, fundshares)
 
     def add_timer(self, when,
                   offset=datetime.timedelta(), repeat=datetime.timedelta(),
